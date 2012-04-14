@@ -219,38 +219,29 @@ enyo.kind({
 		this.getMonthComps();
 	},
 	getDays: function(){
-		var dt = new Date(this.selectedMonth + " 1, " + this.selectedYear);
+		var dt = new Date();
+			dt.setFullYear(this.selectedYear);
+			dt.setMonth(this.selectedMonth-1);
+			dt.setDate(1);
 		var offsetNum = dt.getDay();
-		var lastDayPrevMonth = 31;
-		if (this.selectedMonth == (5 || 7 || 10 || 12)){
-			lastDayPrevMonth = 30;
-		} else if (this.selectedMonth == 3){
-			if (((this.selectedYear % 4 == 0) && (this.selectedYear % 100 != 0)) || (this.selectedYear % 400 == 0)) {
-				lastDayPrevMonth = 29;
-			} else {
-				lastDayPrevMonth = 28;
-			}
-		}
+		
+		//Use internal calculation of date...
+		var prevMonth = new Date(dt);
+			prevMonth.setDate(0);//Set to 0 to get the day before 1 -> last of previous month
+		var lastDayPrevMonth = prevMonth.getDate();
+		var lastOfMonth = new Date(dt);
+			lastOfMonth.setMonth(nextMonth.getMonth()+1);//Next month
+			lastOfMonth.setDate(0);//Set to 0 to get the day before 1 -> last of previous month -> last of this.selectedMonth
+		var lastDayCurMonth = lastOfMonth.getDate();
 		
 		//PreviousMonthDays
 		for (i=0;i<offsetNum;i++){
 			this.dayArray[offsetNum-1-i][0] = lastDayPrevMonth-i;
 		}
 		
-		var lastDayCurMonth = 31;
-		if (this.selectedMonth == 4 || this.selectedMonth == 6 || this.selectedMonth == 9 || this.selectedMonth == 11){
-			lastDayCurMonth = 30;
-		} else if (this.selectedMonth == 2){
-			if (((this.selectedYear % 4 == 0) && (this.selectedYear % 100 != 0)) || (this.selectedYear % 400 == 0)) {
-				lastDayCurMonth = 29;
-			} else {
-				lastDayCurMonth = 28;
-			}
-		}
-		
 		var day = 1;
-		for (row = 0; row < 6; row++) {
-			for (col = 0; col < 7; col++) {
+		for (var row = 0; row < 6; row++) {
+			for (var col = 0; col < 7; col++) {
 				if(row==0 && col==0){
 					col = offsetNum;
 				}
