@@ -230,7 +230,7 @@ enyo.kind({
 			prevMonth.setDate(0);//Set to 0 to get the day before 1 -> last of previous month
 		var lastDayPrevMonth = prevMonth.getDate();
 		var lastOfMonth = new Date(dt);
-			lastOfMonth.setMonth(nextMonth.getMonth()+1);//Next month
+			lastOfMonth.setMonth(dt.getMonth()+1);//Next month
 			lastOfMonth.setDate(0);//Set to 0 to get the day before 1 -> last of previous month -> last of this.selectedMonth
 		var lastDayCurMonth = lastOfMonth.getDate();
 		
