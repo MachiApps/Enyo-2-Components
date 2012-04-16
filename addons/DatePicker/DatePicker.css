@@ -1,0 +1,8 @@
+.day-names {
+	position: relative;
+	display: inline-block;
+	color: Crimson; 
+	font-size:18px; 
+	text-align:center; 
+	margin-top:0px;
+}
