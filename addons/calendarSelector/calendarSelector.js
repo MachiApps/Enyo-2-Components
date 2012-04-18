@@ -82,13 +82,11 @@ enyo.kind({
 			];
 		} else {
 			var x = [
-				//{kind: "onyx.IconButton", src: "images/menu-icon-back.png", style: "padding: 20px;", onclick: "prevMonth"},
 				{content: "<", onclick: "prevMonth"},
-					{kind: "Select", name: "monthSel", onchange: "redraw", style: "vertical-align: middle;", components: monthComps},
-					{kind: "Select", name: "daySel", onchange: "redraw", style: "vertical-align: middle;", components: dArray},
-					{kind: "Select", name: "yearSel", onchange: "redraw", style: "vertical-align: middle;", components: yearSelComps},
-					{content: ">", onclick: "nextMonth"},
-			//	{kind: "onyx.IconButton", src: "images/menu-icon-forward.png", style: "padding: 20px;", onclick: "nextMonth"}
+				{kind: "Select", name: "monthSel", onchange: "redraw", style: "vertical-align: middle;", components: monthComps},
+				{kind: "Select", name: "daySel", onchange: "redraw", style: "vertical-align: middle;", components: dArray},
+				{kind: "Select", name: "yearSel", onchange: "redraw", style: "vertical-align: middle;", components: yearSelComps},
+				{content: ">", onclick: "nextMonth"},
 			];
 		}
 		this.$.topBar.createComponents(x, {owner:this});
@@ -172,16 +170,26 @@ enyo.kind({
 		this.drawCal();
 	},
 	prevMonth: function(){
-		var x1 = new Date(this.selectedYear, this.selectedMonth - 2);
-		this.selectedMonth = x1.getMonth() + 1;
-		this.selectedYear = x1.getFullYear();
+		var dt = new Date(this.selectedYear, this.selectedMonth - 2, this.selectedDay);
+		if (this.selectedDay != dt.getDate()){
+			//If selected Day doesn't exist in new month
+			dt.setDate(0);
+		}
+		this.selectedMonth = dt.getMonth()+1;
+		this.selectedYear = dt.getFullYear();
+		this.selectedDay = dt.getDate();
 		this.updateStuff();
 		this.drawCal();
 	},
 	nextMonth: function(){
-		var x1 = new Date(this.selectedYear, this.selectedMonth);
-		this.selectedMonth = x1.getMonth() + 1;
-		this.selectedYear = x1.getFullYear();
+		var dt = new Date(this.selectedYear, this.selectedMonth, this.selectedDay);
+		if (this.selectedDay != dt.getDate()){
+			//If selected Day doesn't exist in new month
+			dt.setDate(0);
+		}
+		this.selectedMonth = dt.getMonth() + 1;
+		this.selectedYear = dt.getFullYear();
+		this.selectedDay = dt.getDate();
 		this.updateStuff();
 		this.drawCal();
 	},
@@ -207,10 +215,18 @@ enyo.kind({
 		this.$.daySel.createComponents(dArray, {owner: this});
 		this.$.daySel.render();
 	},
-	redraw: function(){
-		this.selectedMonth = this.$.monthSel.getSelected()+1;
-		this.selectedYear = this.years[this.$.yearSel.getSelected()];
-		this.selectedDay = this.days[this.$.daySel.getSelected()];
+	redraw: function(inSender){
+		var m = this.$.monthSel.getSelected();
+		var y = this.years[this.$.yearSel.getSelected()];
+		var d = this.days[this.$.daySel.getSelected()];
+		var dt = new Date(y, m, d);
+		if (this.selectedDay != dt.getDate() && inSender.name != "daySel"){
+			//If selected Day doesn't exist in new month
+			dt.setDate(0);
+		}
+		this.selectedMonth = dt.getMonth() + 1;
+		this.selectedYear = dt.getFullYear();
+		this.selectedDay = dt.getDate();
 		this.updateStuff();
 		this.drawCal();
 	},

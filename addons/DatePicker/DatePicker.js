@@ -72,10 +72,18 @@ enyo.kind({
 			year: this.selectedYear
 		});
 	},
-	dateChanged: function(){
-		this.selectedMonth = this.$.monthSel.getSelected()+1;
-		this.selectedYear = this.years[this.$.yearSel.getSelected()];
-		this.selectedDay = this.days[this.$.daySel.getSelected()];
+	dateChanged: function(inSender){
+		var m = this.$.monthSel.getSelected();
+		var y = this.years[this.$.yearSel.getSelected()];
+		var d = this.days[this.$.daySel.getSelected()];
+		var dt = new Date(y, m, d);
+		if (this.selectedDay != dt.getDate() && inSender.name != "daySel"){
+			//If selected Day doesn't exist in new month
+			dt.setDate(0);
+		}
+		this.selectedMonth = dt.getMonth() + 1;
+		this.selectedYear = dt.getFullYear();
+		this.selectedDay = dt.getDate();
 		this.updateStuff();
 		this.doSelected({
 			day: this.selectedDay,
