@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+<head>
+	<title>MachiApps Components</title>
+	<!-- -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- -->
+	<script src="../enyo/enyo.js" type="text/javascript"></script>
+	<script src="../lib/onyx/package.js" type="text/javascript"></script>
+	<!-- -->
+	<script src="App.js" type="text/javascript"></script>
+	<script src="addons/CustomCheckbox/package.js" type="text/javascript"></script>
+	<!-- -->
+	<style>
+		.align-center {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	new (enyo.kind({
+			name: "App",
+			components: [
+				{content: "Same Checked/Unchecked colors: "},
+				{kind: "MachiApps.Checkbox", color: 'Blue'},
+				{kind: "MachiApps.Checkbox", color: 'Red'},
+				{kind: "MachiApps.Checkbox", color: 'Green'},
+				{kind: "MachiApps.Checkbox", color: 'Yellow'},
+				{kind: "MachiApps.Checkbox"},
+				{tag: 'p'},
+				{content: "Disabled: "},
+				{kind: "MachiApps.Checkbox", color: 'Blue', disabled: true},
+				{kind: "MachiApps.Checkbox", color: 'Red', disabled: true},
+				{kind: "MachiApps.Checkbox", color: 'Green', disabled: true},
+				{kind: "MachiApps.Checkbox", color: 'Yellow', disabled: true},
+				{kind: "MachiApps.Checkbox", disabled: true},
+				{tag: 'p'},
+				{content: "Different Checked/Unchecked colors: "},
+				{kind: "MachiApps.Checkbox", checkedColor: 'GoldenRod', value: true, uncheckedColor: "Grey"},
+				{kind: "MachiApps.Checkbox", checkedColor: 'Crimson', uncheckedColor: "Grey"},
+				{kind: "MachiApps.Checkbox", checkedColor: 'Aqua', uncheckedColor: "Grey"},
+				{kind: "MachiApps.Checkbox", checkedColor: 'White', uncheckedColor: "Grey"},
+				{kind: "MachiApps.Checkbox", checkedColor: 'Orange', uncheckedColor: "Grey"},
+				{kind: "MachiApps.Checkbox", checkedColor: 'Purple', uncheckedColor: "Yellow"},
+				{kind: "MachiApps.Checkbox", checkedColor: 'Pink', uncheckedColor: "White"}
+			]
+		}))().write();
+</script>
+</body>
+</html>

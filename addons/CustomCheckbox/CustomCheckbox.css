@@ -1,0 +1,21 @@
+.machiapps-checkbox {
+	cursor: pointer;
+	height: 32px;
+	width: 32px;
+	background: url(../../images/checkbox.png) no-repeat; 
+	/* these entries cause toggle-button and checkbox to line up properly*/
+	display: inline-block;
+	vertical-align: middle;
+	background-color: Crimson;
+	border-radius: 8px;
+	margin: 2px;
+}
+
+.onyx-checkbox-checked {
+	Xbackground-position: -1px -33px;
+	background-position: 0px -32px;
+}
+
+.onyx-checkbox[disabled] {
+	opacity: 0.4;
+}
