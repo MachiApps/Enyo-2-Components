@@ -1,0 +1,20 @@
+.red-progress-bar {
+	height: 100%;
+	border-radius: 3px;
+	background: Red url(gradient.png) repeat-x;
+	background-size: auto 100%;
+}
+
+.blue-progress-bar {
+	height: 100%;
+	border-radius: 3px;
+	background: Blue url(gradient.png) repeat-x;
+	background-size: auto 100%;
+}
+
+.green-progress-bar {
+	height: 100%;
+	border-radius: 3px;
+	background: Green url(gradient.png) repeat-x;
+	background-size: auto 100%;
+}

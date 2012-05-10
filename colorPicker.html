@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+	<title>MachiApps Components</title>
+	<!-- -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<!-- -->
+	<script src="../enyo/enyo.js" type="text/javascript"></script>
+	<script src="../lib/onyx/package.js" type="text/javascript"></script>
+	<script src="../lib/layout/fittable/package.js" type="text/javascript"></script>
+	<!-- -->
+	<script src="addons/ColorPicker/package.js" type="text/javascript"></script>
+	<!-- -->
+	<style>
+		.align-center {
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	new (enyo.kind({
+			name: "App",
+			components: [
+				{kind: "ColorPicker", onChange: "onPick"},
+				{name: "colorPicked", content: "Color Picked: "}
+			],
+			onPick: function(inSender, color){
+				if (this.$.colorPicked){
+					this.$.colorPicked.setContent("Color Picked: " + inSender.color);
+				}
+			}
+		}))().write();
+</script>
+</body>
+</html>
