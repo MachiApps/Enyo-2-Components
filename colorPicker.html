@@ -21,6 +21,7 @@
 <script type="text/javascript">
 	new (enyo.kind({
 			name: "App",
+			classes: "enyo-unselectable",
 			components: [
 				{kind: "ColorPicker", onChange: "onPick"},
 				{name: "colorPicked", content: "Color Picked: "}
