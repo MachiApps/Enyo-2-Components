@@ -23,9 +23,13 @@ enyo.kind({
 	],
 	create: function() {
 		this.inherited(arguments);
-		this.updateColor();
+		this.colorChanged();
 	},
-	updateColor: function(){
+	setColor: function(c){
+		this.color = c;
+		this.colorChanged();
+	},
+	colorChanged: function(){
 		this.$.colorBox.applyStyle("background-color", '#' + this.color);
 	},
 	colorTapped: function(){
@@ -148,21 +152,23 @@ enyo.kind({
 	published: {
 		red: 'ff',
 		blue: 'ff',
-		green: 'ff'
+		green: 'ff',
+		color: ''
 	},
 	events: {
-		onChange: ""
+		onColorPick: "",
+		onColorSlide: ""
 	},
 	components: [
 		{kind: "DefaultColorsBoxes", onSelect: "colorTapped"},
-		{kind: "onyx.Slider", name: "redSlider", barClasses: "red-progress-bar", onChanging: "redChanged", onChange: "redChanged", style: "vertical-align:middle; height:10px;"},
+		{kind: "onyx.Slider", name: "redSlider", barClasses: "red-progress-bar", onChanging: "redSliding", onChange: "redChanged", style: "vertical-align:middle; height:10px;"},
 		{style: "height: 10px"},
-		{kind: "onyx.Slider", name: "greenSlider", barClasses: "green-progress-bar", onChanging: "greenChanged", onChange: "greenChanged", style: "vertical-align:middle; height:10px;"},
+		{kind: "onyx.Slider", name: "greenSlider", barClasses: "green-progress-bar", onChanging: "greenSliding", onChange: "greenChanged", style: "vertical-align:middle; height:10px;"},
 		{style: "height: 10px"},
-		{kind: "onyx.Slider", name: "blueSlider", barClasses: "blue-progress-bar", onChanging: "blueChanged", onChange: "blueChanged", style: "vertical-align:middle; height:10px;"},
+		{kind: "onyx.Slider", name: "blueSlider", barClasses: "blue-progress-bar", onChanging: "blueSliding", onChange: "blueChanged", style: "vertical-align:middle; height:10px;"},
 		{style: "height: 10px"},
 		{classes: "onyx-groupbox", components:[
-			{name: "colorBox", style: "height: 32px; border: 1px solid Black; margin: 10px;"}
+			{name: "colorBox", ontap: "mainColorPicked", style: "height: 32px; border: 1px solid Black; margin: 10px;"}
 		]}
 	],
 	create: function() {
@@ -176,6 +182,7 @@ enyo.kind({
 		this.blue = color.substr(4,2);
 		this.updateProgresses();
 		this.updateColor();
+		this.doColorPick();
 	},
 	updateProgresses: function(){
 		var r = Math.floor(parseInt(this.red, 16)*100/255);
@@ -185,11 +192,15 @@ enyo.kind({
 		this.$.greenSlider.setValue(g);
 		this.$.blueSlider.setValue(b);
 	},
+	mainColorPicked: function(){
+		color = this.color;
+		console.log("color picked: " + this.color);
+		this.doColorPick();
+	},
 	updateColor: function(){
 		var c = '#' + (this.red + this.green + this.blue).toUpperCase();
 		this.$.colorBox.applyStyle("background-color", c);
 		this.color = c;
-		this.doChange();
 	},
 	redChanged: function(inSender, inEvent){
 		var x = Math.floor(inEvent.value*255/100);
@@ -217,5 +228,35 @@ enyo.kind({
 		}
 		this.blue = h;
 		this.updateColor();
+	},
+	redSliding: function(inSender, inEvent){
+		var x = Math.floor(inEvent.value*255/100);
+		var h = x.toString(16);
+		if (h.length==1){
+			h = '0' + h;
+		}
+		this.red = h;
+		this.updateColor();
+		this.doColorSlide();
+	},
+	greenSliding: function(inSender, inEvent){
+		var x = Math.floor(inEvent.value*255/100);
+		var h = x.toString(16);
+		if (h.length==1){
+			h = '0' + h;
+		}
+		this.green = h;
+		this.updateColor();
+		this.doColorSlide();
+	},
+	blueSliding: function(inSender, inEvent){
+		var x = Math.floor(inEvent.value*255/100);
+		var h = x.toString(16);
+		if (h.length==1){
+			h = '0' + h;
+		}
+		this.blue = h;
+		this.updateColor();
+		this.doColorSlide();
 	}
 });
