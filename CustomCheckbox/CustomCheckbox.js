@@ -17,6 +17,9 @@ enyo.kind({
 		uncheckedColor: '',
 		checkedColor: ''
 	},
+	events: {
+		onChange: ""
+	},
 	create: function(){
 		this.inherited(arguments);
 		if (!this.uncheckedColor){
@@ -29,14 +32,14 @@ enyo.kind({
 	},
 	downHandler: function(inSender, e) {
 		if (!this.disabled) {
-			this.setValue(!this.value);
+			this.setChecked(!this.getChecked());
 			this.setBackgroundColor();
-			this.doChange({value:this.value});
+			this.bubble("onchange");
 		}
 		return true;
 	},
 	setBackgroundColor: function(){
-		if (this.value){
+		if (this.checked){
 			this.applyStyle("background-color", this.checkedColor);
 		} else {
 			this.applyStyle("background-color", this.uncheckedColor);

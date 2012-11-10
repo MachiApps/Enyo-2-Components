@@ -1,0 +1,28 @@
+.top-day-box {
+	position: relative;
+	display: inline-block;
+	margin-top:0px;
+}
+.top-day-names {
+	padding:1px;
+	margin-left: 1px;
+	width: 31px;
+	color: Crimson; 
+	font-size: 18px;
+	text-align:center;
+	display:inline-block;
+}
+.week-container {
+    line-height: 32px;
+}
+.day-container {
+	display:inline-block;
+	width: 30px;
+	height: 32px;
+    vertical-align: middle;
+    margin: 1px;
+    margin-top: 0;
+    text-align: center;
+    border: 1px solid #0E0E0E;
+    border-radius: 2px;
+}

@@ -1,0 +1,11 @@
+.keypad-button{
+	margin:5px;
+	min-width: 90px;
+	min-height: 60px;
+}
+.header-text{
+	color: Crimson;
+	font-size: 32px;
+	font-weight:600;
+	text-shadow: 1px 1px 1px GoldenRod;
+}
